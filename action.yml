@@ -1,7 +1,7 @@
 name: Harold's Release Notifications
-description: Post a message in Slack to say the deployment is initiated, create a release note, and post that note in Slack.
+description: Post a message in Slack to say the deployment is initiated, create a release note, and post that note in Slack. Automates JIRA ticket status movement.
 inputs:
-  git_token:
+  git-token:
     description: GitHub Personal Access Token used to checkout Harold
     required: true
   channel:
@@ -10,7 +10,7 @@ inputs:
   uri:
     description: URI to retrieve the sha of the releasing service
     required: true
-  slack_token:
+  slack-token:
     description: Slack authorization token
     required: true
   repo:
@@ -22,6 +22,9 @@ inputs:
   jira-user:
     description: JIRA username
     required: true
+  jira-uri:
+    description: JIRA uri
+    required: true
   before-sha:
     description: SHA of the previous version
     required: true
@@ -30,6 +33,12 @@ inputs:
     required: true
   release-sha:
     description: SHA of the releasing version
+    required: true
+  failure-webhook:
+    description: The webhook to trigger if the deployment fails.
+    required: true
+  success-webhook:
+    description: The webhook to trigger if the deployment succeeds.
     required: true
 runs:
   using: "composite"
@@ -49,6 +58,6 @@ runs:
         gem install harold
         harold sing -c ${{ inputs.channel }} -t ${{ inputs.slack-token }} -r ${{ inputs.repo }}
         mkdir tmp || echo "tmp/ already exists"
-        harold note --github-repo "https://github.com/${{ inputs.repo }}" --output tmp/ --before-sha ${{ inputs.before-sha }} --release-sha ${{ inputs.release-sha }} --uri ${{ inputs.uri }} --jira-uri https://oncarrot.atlassian.net --jira-token ${{ inputs.jira-token }} --jira-user ${{ inputs.jira-user }}
+        harold note -b ${{ inputs.before-sha }} -f ${{ inputs.failure-token}} -g ${{ inputs.repo }} -o tmp/ -r ${{ inputs.release-sha }} -s ${{ inputs.success-webhook }} -u ${{ inputs.uri }} -G ${{ inputs.git-token }} -J ${{ inputs.jira-uri }} -T ${{ inputs.jira-token }} -U ${{ inputs.jira-user }}
         harold sing -c ${{ inputs.channel }} -t ${{ inputs.slack-token }} -f tmp/release_note.txt -r ${{ inputs.repo }}
       shell: bash
