@@ -28,6 +28,9 @@ inputs:
   before-sha:
     description: SHA of the previous version
     required: true
+  head-sha:
+    description: SHA of the HEAD
+    required: true
   release-sha:
     description: SHA of the releasing version
     required: true
