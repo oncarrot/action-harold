@@ -51,7 +51,7 @@ runs:
       with:
         ruby-version: 2.7.4
     - run: |
-        echo "git log --graph --abbrev-commit --date=relative ${{ inputs.release-sha }}...${{ inputs.before-sha }}"
+        git log --graph --abbrev-commit
         git clone https://${{ inputs.git-token }}@github.com/oncarrot/harold.git
         cd harold
         gem build harold.gemspec
