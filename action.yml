@@ -28,9 +28,6 @@ inputs:
   before-sha:
     description: SHA of the previous version
     required: true
-  head-sha:
-    description: SHA of the HEAD
-    required: true
   release-sha:
     description: SHA of the releasing version
     required: true
@@ -45,14 +42,12 @@ runs:
   steps:
     - uses: actions/checkout@v2
       with:
-        ref: ${{ inputs.head-sha }}
         fetch-depth: 0
     - name: Set up Ruby 2.7.4
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7.4
     - run: |
-        git log --graph --abbrev-commit
         git clone https://${{ inputs.git-token }}@github.com/oncarrot/harold.git
         cd harold
         gem build harold.gemspec
