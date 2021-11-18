@@ -52,6 +52,7 @@ runs:
         cd harold
         gem build harold.gemspec
         gem install harold
+        cd ..
         harold sing -c ${{ inputs.channel }} -t ${{ inputs.slack-token }} -r ${{ inputs.repo }}
         mkdir tmp || echo "tmp/ already exists"
         harold note -b ${{ inputs.before-sha }} -f ${{ inputs.failure-webhook }} -g "https://github.com/${{ inputs.repo }}" -o tmp/ -r ${{ inputs.release-sha }} -s ${{ inputs.success-webhook }} -u ${{ inputs.uri }} -G ${{ inputs.git-token }} -J ${{ inputs.jira-uri }} -T ${{ inputs.jira-token }} -U ${{ inputs.jira-user }}
