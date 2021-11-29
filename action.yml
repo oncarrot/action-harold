@@ -56,5 +56,5 @@ runs:
         gem build harold.gemspec
         gem install harold
         cd ..
-        harold sing -G ${{ inputs.git-token }} -N ${{ inputs.git-user }} -C ${{ inputs.channel }} -u ${{ inputs.uri }} -S ${{ inputs.slack-token }} -g ${{ inputs.repo }} -T ${{ inputs.jira-token }} -U ${{ inputs.jira-user }} -J ${{ inputs.jira-uri }} -b ${{ inputs.before-sha }} -r ${{ inputs.release-sha }} -f ${{ inputs.failure-webhook }} -s ${{ inputs.success-webhook }}
+        harold sing -G ${{ inputs.git-token }} -N ${{ inputs.git-user }} -C ${{ inputs.channel }} -u ${{ inputs.uri }} -S ${{ inputs.slack-token }} -g "https://github.com/${{ inputs.repo }}" -T ${{ inputs.jira-token }} -U ${{ inputs.jira-user }} -J ${{ inputs.jira-uri }} -b ${{ inputs.before-sha }} -r ${{ inputs.release-sha }} -f ${{ inputs.failure-webhook }} -s ${{ inputs.success-webhook }}
       shell: bash
