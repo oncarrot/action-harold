@@ -49,10 +49,10 @@ runs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: Set up Ruby 3.0.3
+    - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.0.3
+        ruby-version: 3.3.4
     - run: |
         git clone https://${{ inputs.git-token }}@github.com/oncarrot/harold.git --depth 5
         cd harold
